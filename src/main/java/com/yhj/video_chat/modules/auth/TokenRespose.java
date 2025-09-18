@@ -9,5 +9,6 @@ import lombok.Data;
 public class TokenRespose {
 	private String accessToken;
 	private String refreshToken;
+    private String role;
 
 }

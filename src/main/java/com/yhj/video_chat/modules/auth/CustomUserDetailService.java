@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.yhj.video_chat.test.user.User;
 import com.yhj.video_chat.test.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;

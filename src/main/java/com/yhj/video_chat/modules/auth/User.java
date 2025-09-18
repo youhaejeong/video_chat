@@ -1,6 +1,4 @@
-package com.yhj.video_chat.test.user;
-
-import com.yhj.video_chat.enumrate.ChatRole;
+package com.yhj.video_chat.modules.auth;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

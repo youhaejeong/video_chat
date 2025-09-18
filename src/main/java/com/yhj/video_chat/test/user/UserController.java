@@ -2,6 +2,7 @@ package com.yhj.video_chat.test.user;
 
 import java.util.List;
 
+import com.yhj.video_chat.modules.auth.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
