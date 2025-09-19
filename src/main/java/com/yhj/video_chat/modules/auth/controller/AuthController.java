@@ -23,10 +23,11 @@ public class AuthController {
     // 로그인
     @PostMapping("/auth/login")
     public TokenRespose login(@RequestBody LoginRequest request) throws Exception {
+        // 로그인시 방장이 될지 시청자가 될지 모르기때문에 role을 none 으로 지정
         System.out.println("Login 요청 들어옴: " + request);
 
         String username = request.getUsername();
-        String roomId = request.getRoomId();
+//        String roomId = request.getRoomId();
 
         // 이미 존재하는 유저 체크
         userRepository.findByUsername(username).ifPresent(user -> {
@@ -34,27 +35,27 @@ public class AuthController {
         });
 
         // Redis에서 참가자 수 확인
-        String roomKey = "room:" + roomId + ":participants";
-        Long participantCount = redisTemplate.opsForList().size(roomKey);
-
-        String role = (participantCount == null || participantCount == 0) ? "ROLE_BROADCASTER" : "ROLE_VIEWER";
+//        String roomKey = "room:" + roomId + ":participants";
+//        Long participantCount = redisTemplate.opsForList().size(roomKey);
+//
+//        String role = (participantCount == null || participantCount == 0) ? "ROLE_BROADCASTER" : "ROLE_VIEWER";
 
         // DB 저장
         User user = User.builder()
                 .username(username)
                 .password("123")
-                .role(role)
+                .role("ROLE_NONE")
                 .build();
         userRepository.save(user);
 
         // Redis에 참가자 추가
-        redisTemplate.opsForList().rightPush(roomKey, username);
+//        redisTemplate.opsForList().rightPush(roomKey, username);
 
         // JWT 생성
-        String accessToken = jwtTokenProvider.createToken(username, role);
+        String accessToken = jwtTokenProvider.createToken(username, "ROLE_NONE");
         String refreshToken = jwtTokenProvider.createRefreshToken(username);
 
-        return new TokenRespose(accessToken, refreshToken,role);
+        return new TokenRespose(accessToken, refreshToken,"ROLE_NONE");
     }
 
 
